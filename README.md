@@ -88,7 +88,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any inquiries, please contact [Mark](mailto:your-email@example.com).
+For any inquiries, please contact [Mark](mailto:mark.kimitch@gmail.com).
 
 ---
 
