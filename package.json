@@ -1,16 +1,5 @@
 {
 	"author": "Mark Kimitch <mark.kimitch@gmail.com>",
-	"license": "MIT",
-	"main": "index.js",
-	"name": "wordle-helper",
-	"repository": "https://github.com/mkimitch/wordle-helper.git",
-	"scripts": {
-		"build": "webpack --mode production",
-		"deploy": "gh-pages -d dist",
-		"predeploy": "yarn build",
-		"start": "webpack serve --open --mode development"
-	},
-	"version": "1.0.0",
 	"dependencies": {
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
@@ -34,5 +23,17 @@
 		"webpack": "^5.93.0",
 		"webpack-cli": "^5.1.4",
 		"webpack-dev-server": "^5.0.4"
-	}
+	},
+	"homepage": "https://mkimitch.github.io/wordle-helper",
+	"license": "MIT",
+	"main": "index.js",
+	"name": "wordle-helper",
+	"repository": "https://github.com/mkimitch/wordle-helper.git",
+	"scripts": {
+		"build": "webpack --mode production",
+		"deploy": "gh-pages -d dist",
+		"predeploy": "yarn build",
+		"start": "webpack serve --open --mode development"
+	},
+	"version": "1.0.0"
 }

@@ -6,7 +6,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "bundle.js",
-		publicPath: "/",
+		publicPath: "/wordle-helper/", // Update this line
 	},
 	resolve: {
 		extensions: [".tsx", ".ts", ".js"],
