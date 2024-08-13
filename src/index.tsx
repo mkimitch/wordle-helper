@@ -1,5 +1,3 @@
-import "./styles.scss";
-
 import App from "./App";
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

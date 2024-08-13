@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 interface KeyboardProps {
-	keyStates: { [key: string]: "black" | "yellow" | "green" };
+	keyStates: { [key: string]: "absent" | "present" | "correct" };
 }
 
 const Keyboard: FC<KeyboardProps> = ({ keyStates }) => {
