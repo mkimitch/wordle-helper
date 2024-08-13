@@ -1,56 +1,24 @@
 import "./Tile.styles.scss";
 
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useRef, useEffect } from "react";
+
 import type { TileProps } from "./Tile.types";
 import { useGlobalStore } from "../../context/GlobalStore";
 
 const Tile: FC<TileProps> = ({ row, col }) => {
 	const { globalStore, setGlobalStore } = useGlobalStore();
 	const tileKey = `${row}-${col}`;
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Provide a default object to avoid undefined errors
 	const tile = globalStore.boardState[tileKey] || { state: "", value: "" };
-	const [isFocused, setIsFocused] = useState(false);
 
 	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (!isFocused) return;
-
-			if (e.key === "Backspace") {
-				// Clear the tile value and state
-				setGlobalStore((prevState) => ({
-					...prevState,
-					boardState: {
-						...prevState.boardState,
-						[tileKey]: {
-							...tile,
-							value: "",
-							state: "",
-						},
-					},
-				}));
-			} else if (/^[a-zA-Z]$/.test(e.key)) {
-				// Set the tile value to the typed letter
-				const value = e.key.toUpperCase();
-				setGlobalStore((prevState) => ({
-					...prevState,
-					boardState: {
-						...prevState.boardState,
-						[tileKey]: {
-							...tile,
-							value,
-							state: tile.state || "absent", // Default state if not set
-						},
-					},
-				}));
-			}
-		};
-
-		window.addEventListener("keydown", handleKeyDown);
-		return () => {
-			window.removeEventListener("keydown", handleKeyDown);
-		};
-	}, [isFocused, setGlobalStore, tile, tileKey]);
+		// Automatically focus the first tile on mount
+		if (row === 1 && col === 1) {
+			inputRef.current?.focus();
+		}
+	}, [row, col]);
 
 	const cycleTileState = () => {
 		if (!tile.value) return; // Prevent state toggle if no letter is entered
@@ -80,17 +48,78 @@ const Tile: FC<TileProps> = ({ row, col }) => {
 		}));
 	};
 
-	const handleClick = () => {
-		setIsFocused(true);
-		cycleTileState();
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value.toUpperCase();
+
+		setGlobalStore((prevState) => ({
+			...prevState,
+			boardState: {
+				...prevState.boardState,
+				[tileKey]: {
+					...tile,
+					value,
+					state: value ? tile.state || "absent" : "", // Default to absent if not set
+				},
+			},
+		}));
+
+		// Move focus to the next tile
+		if (value && inputRef.current) {
+			const nextTile = inputRef.current.nextElementSibling as HTMLInputElement;
+			if (nextTile) {
+				nextTile.focus();
+			}
+		}
+	};
+
+	const handleTileClick = (e: React.MouseEvent | React.TouchEvent) => {
+		e.stopPropagation(); // Prevent the click from bubbling up to the input
+		if (inputRef.current) {
+			inputRef.current.focus(); // Focus the input to trigger the keyboard
+		}
+		cycleTileState(); // Trigger the state cycle
+	};
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		// Handle backspace to clear the current tile and move focus to the previous one
+		if (e.key === "Backspace" && !tile.value && inputRef.current) {
+			const prevTile = inputRef.current
+				.previousElementSibling as HTMLInputElement;
+			if (prevTile) {
+				prevTile.focus();
+			}
+		}
 	};
 
 	return (
 		<div
-			className={`tile ${tile.state} ${isFocused ? "focused" : ""}`}
-			onClick={handleClick}
-			style={{ backgroundColor: getTileColor(tile.state) }}
+			className={`tile ${tile.state}`}
+			onClick={handleTileClick}
+			style={{
+				backgroundColor: getTileColor(tile.state),
+				position: "relative",
+			}}
 		>
+			<input
+				ref={inputRef}
+				type="text"
+				maxLength={1}
+				value={tile.value}
+				onChange={handleInputChange}
+				onKeyDown={handleKeyDown}
+				style={{
+					position: "absolute",
+					opacity: 0,
+					width: "100%",
+					height: "100%",
+					top: 0,
+					left: 0,
+					border: "none",
+					backgroundColor: "transparent",
+					color: "transparent",
+					zIndex: 1,
+				}}
+			/>
 			{tile.value}
 		</div>
 	);
