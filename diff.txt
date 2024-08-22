@@ -1,0 +1,207 @@
+```diff
+diff --git a/src/App.tsx b/src/App.tsx
+index 6b444f5..91e0da9 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,33 +1,34 @@
+-import "./styles/globals.scss";
++import './styles/globals.scss'
+ 
+-import type { BoardState, SolutionState } from "./context/GlobalStore.types";
+-import { GlobalStoreProvider, useGlobalStore } from "./context/GlobalStore";
+-import React, { FC } from "react";
++import type { BoardState, SolutionState } from './context/GlobalStore.types'
++import { GlobalStoreProvider, useGlobalStore } from './context/GlobalStore'
++import React, { FC } from 'react'
+ 
+-import Board from "./components/Board/Board";
+-import Results from "./components/Results/Results";
+-import { wordleAnswersList } from "./utils/wordLists";
++import Board from './components/Board/Board'
++import Results from './components/Results/Results'
++import { wordleAnswersList } from './utils/wordLists'
++import Footer from './components/Footer/Footer'
+ 
+ const WordleHelper: FC = () => {
+-	const { globalStore, setGlobalStore } = useGlobalStore();
++	const { globalStore, setGlobalStore } = useGlobalStore()
+ 
+ 	const getPossibleWords = ({
+ 		wordleAnswersList,
+ 		solutionState,
+ 	}: {
+-		wordleAnswersList: string[];
+-		solutionState: SolutionState;
++		wordleAnswersList: string[]
++		solutionState: SolutionState
+ 	}): string[] => {
+-		const { exclude, include, letters } = solutionState;
++		const { exclude, include, letters } = solutionState
+ 
+-		const normalizedInclude = include.map((letter) => letter.toLowerCase());
+-		const normalizedExclude = exclude.map((letter) => letter.toLowerCase());
++		const normalizedInclude = include.map(letter => letter.toLowerCase())
++		const normalizedExclude = exclude.map(letter => letter.toLowerCase())
+ 
+ 		const includesLetter = (word: string) =>
+-			normalizedInclude.every((letter) => word.includes(letter));
++			normalizedInclude.every(letter => word.includes(letter))
+ 
+ 		const excludesLetter = (word: string) =>
+-			!normalizedExclude.some((letter) => word.includes(letter));
++			!normalizedExclude.some(letter => word.includes(letter))
+ 
+ 		const letterPatterns = Object.entries(letters).map(
+ 			([position, { is, isnot }]) => {
+@@ -36,45 +37,49 @@ const WordleHelper: FC = () => {
+ 						is
+ 							? is.toLowerCase()
+ 							: isnot.length > 0
+-							? `[^${isnot.join("").toLowerCase()}]`
+-							: "."
++							? `[^${isnot.join('').toLowerCase()}]`
++							: '.'
+ 					}.{${5 - Number(position)}}$`,
+-					"i"
+-				);
+-				return { pattern, position };
++					'i'
++				)
++				return { pattern, position }
+ 			}
+-		);
++		)
+ 
+-		return wordleAnswersList.filter((word) => {
+-			if (!excludesLetter(word)) return false;
+-			if (!includesLetter(word)) return false;
+-			return letterPatterns.every(({ pattern }) => pattern.test(word));
+-		});
+-	};
++		return wordleAnswersList.filter(word => {
++			if (!excludesLetter(word)) return false
++			if (!includesLetter(word)) return false
++			return letterPatterns.every(({ pattern }) => pattern.test(word))
++		})
++	}
+ 
+ 	const handleSearch = () => {
+-		const solutionState = extractSolutionState(globalStore.boardState);
++		const solutionState = extractSolutionState(globalStore.boardState)
+ 		const possibleWords = getPossibleWords({
+ 			wordleAnswersList,
+ 			solutionState,
+-		});
++		})
+ 
+-		setGlobalStore((prevState) => ({
++		setGlobalStore(prevState => ({
+ 			...prevState,
+ 			results: possibleWords, // Update results in the global store
+-		}));
+-	};
++		}))
++	}
+ 
+ 	return (
+-		<div className="wordle-helper">
++		<div className='wordle-helper'>
+ 			<Board />
+-			<button className="search-button" onClick={handleSearch}>
++			<button
++				className='search-button'
++				onClick={handleSearch}
++			>
+ 				Search
+ 			</button>
+ 			<Results />
++			<Footer />
+ 		</div>
+-	);
+-};
++	)
++}
+ 
+ const extractSolutionState = (boardState: BoardState): SolutionState => {
+ 	const solutionState: SolutionState = {
+@@ -87,36 +92,36 @@ const extractSolutionState = (boardState: BoardState): SolutionState => {
+ 			4: { is: null, isnot: [] },
+ 			5: { is: null, isnot: [] },
+ 		},
+-	};
++	}
+ 
+ 	Object.entries(boardState).forEach(([key, { value, state }]) => {
+-		const position = parseInt(key.split("-")[1], 10) as 1 | 2 | 3 | 4 | 5;
++		const position = parseInt(key.split('-')[1], 10) as 1 | 2 | 3 | 4 | 5
+ 		if (value) {
+-			if (state === "correct") {
+-				solutionState.letters[position].is = value;
++			if (state === 'correct') {
++				solutionState.letters[position].is = value
+ 				if (!solutionState.include.includes(value)) {
+-					solutionState.include.push(value);
++					solutionState.include.push(value)
+ 				}
+-			} else if (state === "present") {
++			} else if (state === 'present') {
+ 				if (!solutionState.include.includes(value)) {
+-					solutionState.include.push(value);
++					solutionState.include.push(value)
+ 				}
+-				solutionState.letters[position].isnot.push(value);
+-			} else if (state === "absent") {
++				solutionState.letters[position].isnot.push(value)
++			} else if (state === 'absent') {
+ 				if (!solutionState.exclude.includes(value)) {
+-					solutionState.exclude.push(value);
++					solutionState.exclude.push(value)
+ 				}
+ 			}
+ 		}
+-	});
++	})
+ 
+-	return solutionState;
+-};
++	return solutionState
++}
+ 
+ const App: FC = () => (
+ 	<GlobalStoreProvider>
+ 		<WordleHelper />
+ 	</GlobalStoreProvider>
+-);
++)
+ 
+-export default App;
++export default App
+diff --git a/src/index.html b/src/index.html
+index de28590..48ae3af 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -2,7 +2,10 @@
+ <html lang="en">
+ 	<head>
+ 		<meta charset="UTF-8" />
+-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
++		<meta
++			content="width=device-width, initial-scale=1.0"
++			name="viewport"
++		/>
+ 		<title>Wordle Helper</title>
+ 	</head>
+ 	<body>
+diff --git a/src/styles/globals.scss b/src/styles/globals.scss
+index 048234d..73c3fdc 100644
+--- a/src/styles/globals.scss
++++ b/src/styles/globals.scss
+@@ -9,7 +9,6 @@ body {
+ 	background-color: #121213;
+ 	color: #fff;
+ 	display: flex;
+-	flex-direction: row;
+ 	font-family: Arial, sans-serif;
+ 	height: 100vh;
+ 	justify-content: center;
+```
