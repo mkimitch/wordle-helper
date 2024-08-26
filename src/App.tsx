@@ -6,7 +6,7 @@ import React, { FC } from 'react'
 
 import Board from './components/Board/Board'
 import Results from './components/Results/Results'
-import { wordleAnswersList } from './utils/wordLists'
+import { wordleAnswersList } from './utils/utils'
 import Footer from './components/Footer/Footer'
 
 const WordleHelper: FC = () => {
