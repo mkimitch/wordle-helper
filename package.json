@@ -1,9 +1,13 @@
 {
 	"author": "Mark Kimitch <mark.kimitch@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/mkimitch/wordle-helper/issues"
+	},
 	"dependencies": {
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	},
+	"description": "A Wordle helper application built with React",
 	"devDependencies": {
 		"@babel/core": "^7.25.2",
 		"@babel/preset-env": "^7.25.3",
@@ -25,7 +29,13 @@
 		"webpack-dev-server": "^5.0.4"
 	},
 	"homepage": "https://mkimitch.github.io/wordle-helper",
-	"license": "MIT",
+	"keywords": [
+		"wordle",
+		"helper",
+		"react",
+		"typescript"
+	],
+	"license": "GPL-3.0-or-later",
 	"main": "index.js",
 	"name": "wordle-helper",
 	"repository": "https://github.com/mkimitch/wordle-helper.git",
