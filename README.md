@@ -1,8 +1,8 @@
 # Wordle Helper
 
-**Author**: Mark Kimitch | **Email**: [mark.kimitch@gmail.com](mailto:mark.kimitch@gmail.com) | **Version**: 1.0.0 | **License**: MIT
+**Author**: Mark Kimitch | **Email**: [mark.kimitch@gmail.com](mailto:mark.kimitch@gmail.com) | **Version**: 1.0.0 | **License**: [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mkimitch/wordle-helper/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub issues](https://img.shields.io/github/issues/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/issues)
 [![GitHub forks](https://img.shields.io/github/forks/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/network)
 [![GitHub stars](https://img.shields.io/github/stars/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/stargazers)
@@ -117,7 +117,7 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
