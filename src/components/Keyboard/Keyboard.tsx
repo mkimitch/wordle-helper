@@ -1,21 +1,24 @@
-import React, { FC } from "react";
+import React, { FC } from 'react'
 
 interface KeyboardProps {
-	keyStates: { [key: string]: "absent" | "present" | "correct" };
+	keyStates: { [key: string]: 'absent' | 'present' | 'correct' }
 }
 
 const Keyboard: FC<KeyboardProps> = ({ keyStates }) => {
-	const keys = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
+	const keys = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('')
 
 	return (
-		<div className="keyboard">
+		<div className='keyboard'>
 			{keys.map((key, index) => (
-				<button key={index} className={`key ${keyStates[key] || ""}`}>
+				<button
+					className={`key ${keyStates[key] || ''}`}
+					key={index}
+				>
 					{key}
 				</button>
 			))}
 		</div>
-	);
-};
+	)
+}
 
-export default Keyboard;
+export default Keyboard

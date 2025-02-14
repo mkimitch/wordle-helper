@@ -1,6 +1,21 @@
 // Mixins
+@use "sass:color";
+@use "_variables" as *;
+
 @mixin flex-center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+@mixin tile-base {
+	border: 2px solid $tile-border-color;
+	color: $tile-text-color;
+	font-size: 2rem;
+	font-weight: bold;
+	height: $tile-size;
+	text-transform: uppercase;
+	width: $tile-size;
+  
+	@include flex-center;
 }

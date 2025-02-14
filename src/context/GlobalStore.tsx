@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, ReactNode, useContext, useState } from 'react'
 import type {
-	GlobalStoreState,
 	GlobalStoreContextType,
+	GlobalStoreState,
 } from './GlobalStore.types'
 
 export const GlobalStoreContext = createContext<

@@ -48,10 +48,9 @@ module.exports = {
 						loader: "sass-loader",
 						options: {
 							sourceMap: true,
-							additionalData: `
-								@import "@styles/_variables.scss";
-								@import "@styles/_mixins.scss";
-							`,
+							sassOptions: {
+								includePaths: [path.resolve(__dirname, "src/styles")],
+							},
 						},
 					},
 				],
@@ -69,7 +68,7 @@ module.exports = {
 		}),
 	],
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
+		extensions: [".tsx", ".ts", ".js", ".scss"],
 		alias: {
 			"@styles": path.resolve(__dirname, "src/styles"),
 		},

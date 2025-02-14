@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
-import Tile from '../Tile/Tile'
 import { useGlobalStore } from '../../context/GlobalStore'
-import { getTileKey, getDefaultTile, updateTileState } from '../../utils/utils'
+import { getDefaultTile, getTileKey, updateTileState } from '../../utils/utils'
+import Tile from '../Tile/Tile'
 import './Board.styles.scss'
 
 const Board: FC = () => {
@@ -10,6 +10,11 @@ const Board: FC = () => {
 	// Handle key events
 	const handleKeyDown = (e: KeyboardEvent) => {
 		const key = e.key.toUpperCase()
+
+		// Prevent default browser behavior for letter keys and backspace
+		if ((key >= 'A' && key <= 'Z' && key.length === 1) || key === 'BACKSPACE') {
+			e.preventDefault()
+		}
 
 		if (key === 'BACKSPACE') {
 			handleBackspace()
@@ -63,22 +68,29 @@ const Board: FC = () => {
 	}, [globalStore.boardState])
 
 	return (
-		<div className='board'>
-			{[...Array(6)].map((_, row) => (
-				<div
-					key={row}
-					className='row'
-				>
-					{[...Array(5)].map((_, col) => (
-						<Tile
-							key={col}
-							row={row + 1}
-							col={col + 1}
-						/>
-					))}
-				</div>
-			))}
-		</div>
+		<>
+			<div
+				className='board'
+				role='grid'
+				aria-label='Wordle game board'
+			>
+				{[...Array(6)].map((_, row) => (
+					<div
+						key={row}
+						className='row'
+						role='row'
+					>
+						{[...Array(5)].map((_, col) => (
+							<Tile
+								key={col}
+								row={row + 1}
+								col={col + 1}
+							/>
+						))}
+					</div>
+				))}
+			</div>
+		</>
 	)
 }
 

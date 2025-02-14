@@ -1,15 +1,13 @@
+@use "../../styles/_variables" as *;
+@use "../../styles/_mixins" as *;
+
 .board {
-	box-sizing: border-box;
-	display: grid;
-	grid-gap: 5px;
-	grid-template-rows: repeat(6, 1fr);
-	height: fit-content;
-	padding: 10px;
-	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	gap: $gap-size;
 
 	.row {
-		display: grid;
-		grid-gap: 5px;
-		grid-template-columns: repeat(5, 1fr);
+		display: flex;
+		gap: $gap-size;
 	}
 }

@@ -1,6 +1,28 @@
+@use "sass:color";
+@use "../../styles/_variables" as *;
+@use "../../styles/_mixins" as *;
+
 .results {
-	.possible-words {
-		overflow-y: auto;
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+
+	.results-list {
 		max-height: 200px;
+		overflow-y: auto;
+
+		.result-item {
+			background-color: white;
+			border: 1px solid $tile-border-color;
+			border-radius: 4px;
+			font-size: 1rem;
+			padding: 10px;
+			text-transform: uppercase;
+			@include flex-center;
+
+			&:hover {
+				background-color: #f0f3f3;
+			}
+		}
 	}
 }
