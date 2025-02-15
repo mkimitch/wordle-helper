@@ -12,17 +12,8 @@
 		overflow-y: auto;
 
 		.result-item {
-			background-color: white;
-			border: 1px solid $tile-border-color;
-			border-radius: 4px;
 			font-size: 1rem;
-			padding: 10px;
 			text-transform: uppercase;
-			@include flex-center;
-
-			&:hover {
-				background-color: #f0f3f3;
-			}
 		}
 	}
 }

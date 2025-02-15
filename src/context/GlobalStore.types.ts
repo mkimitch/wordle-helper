@@ -1,4 +1,5 @@
 import type { TileState } from '../components/Tile/Tile.types'
+import type { Dispatch, SetStateAction } from 'react'
 
 export interface LetterPosition {
 	is: string | null
@@ -7,24 +8,29 @@ export interface LetterPosition {
 
 // Define the solution state type
 export interface SolutionState {
-	exclude: string[]
+	letters: Record<string, { is: string | null; isnot: string[] }>
 	include: string[]
-	letters: {
-		1: LetterPosition
-		2: LetterPosition
-		3: LetterPosition
-		4: LetterPosition
-		5: LetterPosition
-	}
+	exclude: string[]
+}
+
+export interface Tile {
+	value: string
+	state: 'correct' | 'present' | 'absent' | ''
 }
 
 export interface BoardState {
-	[key: string]: TileState
+	[key: string]: Tile
+}
+
+export interface FocusedTile {
+	row: number
+	col: number
 }
 
 // Define the global store state type
 export interface GlobalStoreState {
 	boardState: BoardState
+	focusedTile: FocusedTile | null
 	results: string[]
 	solutionState: SolutionState
 }
@@ -32,5 +38,5 @@ export interface GlobalStoreState {
 // Define the context type
 export interface GlobalStoreContextType {
 	globalStore: GlobalStoreState
-	setGlobalStore: React.Dispatch<React.SetStateAction<GlobalStoreState>>
+	setGlobalStore: Dispatch<SetStateAction<GlobalStoreState>>
 }

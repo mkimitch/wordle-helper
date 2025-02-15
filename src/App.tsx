@@ -6,7 +6,6 @@ import type { BoardState, SolutionState } from './context/GlobalStore.types'
 
 import Board from './components/Board/Board'
 import Footer from './components/Footer/Footer'
-import Instructions from './components/Instructions/Instructions'
 import Results from './components/Results/Results'
 import { wordleAnswersList } from './utils/utils'
 
@@ -86,7 +85,6 @@ const WordleHelper: FC = () => {
 	return (
 		<main className='wordle-helper'>
 			<h1 className='visually-hidden'>Wordle Helper</h1>
-			<Instructions />
 			<Board />
 			<button
 				className='search-button'

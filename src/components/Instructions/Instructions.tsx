@@ -1,63 +1,66 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import './Instructions.styles.scss'
 
-const Instructions: FC = () => {
-	const [isOpen, setIsOpen] = useState(false)
+interface InstructionsProps {
+	isOpen: boolean
+}
+
+const Instructions: FC<InstructionsProps> = ({ isOpen }) => {
+	if (!isOpen) return null
 
 	return (
-		<div className='instructions-container'>
-			<button
-				className='instructions-button'
-				onClick={() => setIsOpen(!isOpen)}
-				aria-expanded={isOpen}
-				aria-controls='instructions-content'
-				aria-label='How to play instructions'
-			>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					viewBox='0 0 24 24'
-					fill='none'
-					stroke='currentColor'
-					strokeWidth='2'
-					strokeLinecap='round'
-					strokeLinejoin='round'
-					aria-hidden='true'
-				>
-					<circle
-						cx='12'
-						cy='12'
-						r='10'
-					/>
-					<path d='M12 16v-4M12 8h.01' />
-				</svg>
-			</button>
-			{isOpen && (
-				<div
-					id='instructions-content'
-					className='instructions-content'
-					role='region'
-					aria-label='How to play'
-				>
-					<p>
-						Use keyboard to type letters. Click or tap tiles to change their
-						color state.
-					</p>
-					<ul>
-						<li>
-							<span className='color-sample correct' />
-							Letter is correct in this position
-						</li>
-						<li>
-							<span className='color-sample present' />
-							Letter exists but in different position
-						</li>
-						<li>
-							<span className='color-sample absent' />
-							Letter is not in the word
-						</li>
-					</ul>
-				</div>
-			)}
+		<div
+			id="instructions-content"
+			className="instructions"
+			role="region"
+			aria-label="How to play"
+		>
+			<div className="instructions-section">
+				<h2>Instructions</h2>
+				<p>
+					Enter a word that you want to solve for. The word must be exactly 5
+					letters long. Then, use the keyboard or click/tap to mark each letter with
+					its correct state from Wordle:
+				</p>
+				<ul className="state-list">
+					<li>
+						<span className="tile correct">A</span> - Letter is in the correct
+						position (green)
+					</li>
+					<li>
+						<span className="tile present">B</span> - Letter is in the word but
+						wrong position (yellow)
+					</li>
+					<li>
+						<span className="tile absent">C</span> - Letter is not in the word
+						(gray)
+					</li>
+				</ul>
+			</div>
+
+			<div className="instructions-section controls">
+				<h3>Keyboard Controls</h3>
+				<ul>
+					<li>⌨️ Type letters to fill tiles</li>
+					<li>🔄 Space/Enter to cycle tile states: gray → green → yellow → empty</li>
+					<li>⬅️➡️ Arrow keys to navigate between tiles</li>
+					<li>⌫ Backspace to clear letters</li>
+				</ul>
+
+				<h3>Mouse/Touch Controls</h3>
+				<ul>
+					<li>🖱️ Click/tap once to focus a tile</li>
+					<li>🔄 Click/tap again to cycle its state (when populated)</li>
+				</ul>
+			</div>
+
+			<div className="instructions-section">
+				<p>
+					Click "Find Solutions" to see all possible words that match your
+					constraints. The solutions are sorted by frequency of use in English text,
+					with more common words appearing first.
+				</p>
+			</div>
 		</div>
 	)
 }
