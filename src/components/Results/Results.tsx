@@ -6,20 +6,34 @@ const Results: FC = () => {
 	const { globalStore } = useGlobalStore()
 
 	return (
-		<div className='results'>
+		<div
+			className='results'
+			role='region'
+			aria-label='Search results'
+		>
 			{globalStore.results.length > 0 ? (
 				<>
-					<h2>Possible words ({globalStore.results.length}):</h2>
-					<div className='possible-words'>
-						<ul id='results'>
-							{globalStore.results.map(word => (
-								<li key={word}>{word}</li>
-							))}
-						</ul>
+					<h2 id='results-heading'>
+						Possible words ({globalStore.results.length}):
+					</h2>
+					<div
+						className='results-list'
+						role='list'
+						aria-labelledby='results-heading'
+					>
+						{globalStore.results.map(word => (
+							<div
+								key={word}
+								className='result-item'
+								role='listitem'
+							>
+								{word}
+							</div>
+						))}
 					</div>
 				</>
 			) : (
-				<p>No results found. Please enter valid letters.</p>
+				<p role='alert'>No results found. Please enter valid letters.</p>
 			)}
 		</div>
 	)

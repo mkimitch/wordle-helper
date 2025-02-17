@@ -1,101 +1,84 @@
-import './Tile.styles.scss'
-import React, { FC, useRef, useEffect } from 'react'
-import type { TileProps } from './Tile.types'
+import React, { FC, useEffect, useRef } from 'react'
 import { useGlobalStore } from '../../context/GlobalStore'
-import { getTileKey, getDefaultTile, updateTileState } from '../../utils/utils'
+import { getDefaultTile, getTileKey } from '../../utils/utils'
+import './Tile.styles.scss'
+
+interface TileProps {
+	row: number
+	col: number
+}
 
 const Tile: FC<TileProps> = ({ row, col }) => {
 	const { globalStore, setGlobalStore } = useGlobalStore()
 	const tileKey = getTileKey(row, col)
-	const inputRef = useRef<HTMLInputElement>(null)
-
+	const inputRef = useRef<HTMLDivElement>(null)
 	const tile = getDefaultTile(globalStore.boardState, tileKey)
+	const isFocused = globalStore.focusedTile?.row === row && globalStore.focusedTile?.col === col
 
 	useEffect(() => {
-		// Automatically focus the first tile on mount
-		if (row === 1 && col === 1) {
-			inputRef.current?.focus()
+		if (isFocused && inputRef.current) {
+			inputRef.current.focus()
 		}
-	}, [row, col])
+	}, [isFocused])
 
-	const cycleTileState = () => {
-		if (!tile.value) return // Prevent state toggle if no letter is entered
-
-		const newState =
-			tile.state === 'correct'
-				? 'present'
-				: tile.state === 'present'
-				? 'absent'
-				: 'correct'
-
-		updateTileState(setGlobalStore, tileKey, tile, { state: newState })
-	}
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value.toUpperCase()
-
-		updateTileState(setGlobalStore, tileKey, tile, {
-			value,
-			state: value ? tile.state || 'absent' : '',
-		})
-
-		// Move focus to the next tile
-		if (value && inputRef.current) {
-			const nextTile = inputRef.current.nextElementSibling as HTMLInputElement
-			if (nextTile) {
-				nextTile.focus()
+	const handleClick = () => {
+		if (isFocused && tile.value) {
+			// If already focused and has a value, cycle the state
+			const stateTransitions: Record<string, string> = {
+				'': 'correct',
+				'correct': 'present',
+				'present': 'absent',
+				'absent': ''
 			}
-		}
-	}
-
-	const handleTileClick = (e: React.MouseEvent | React.TouchEvent) => {
-		e.stopPropagation() // Prevent the click from bubbling up to the input
-		if (inputRef.current) {
-			inputRef.current.focus() // Focus the input to trigger the keyboard
-		}
-		cycleTileState() // Trigger the state cycle
-	}
-
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		// Handle backspace to clear the current tile and move focus to the previous one
-		if (e.key === 'Backspace' && !tile.value && inputRef.current) {
-			const prevTile = inputRef.current
-				.previousElementSibling as HTMLInputElement
-			if (prevTile) {
-				prevTile.focus()
-			}
+			const nextState = stateTransitions[tile.state] || 'correct'
+			setGlobalStore(prev => ({
+				...prev,
+				boardState: {
+					...prev.boardState,
+					[tileKey]: { ...tile, state: nextState }
+				}
+			}))
+		} else {
+			// Set focus to this tile
+			setGlobalStore(prev => ({
+				...prev,
+				focusedTile: { row, col }
+			}))
 		}
 	}
 
 	return (
 		<div
-			className={`tile ${tile.state}`}
-			onClick={handleTileClick}
-			style={{
-				backgroundColor: getTileColor(tile.state),
-				position: 'relative',
-			}}
+			ref={inputRef}
+			className={`tile ${tile.state} ${isFocused ? 'focused' : ''}`}
+			onClick={handleClick}
+			tabIndex={isFocused ? 0 : -1}
+			role="gridcell"
+			aria-label={`${
+				row === 1
+					? 'First'
+					: row === 2
+					? 'Second'
+					: row === 3
+					? 'Third'
+					: row === 4
+					? 'Fourth'
+					: row === 5
+					? 'Fifth'
+					: 'Sixth'
+			} row, ${
+				col === 1
+					? 'first'
+					: col === 2
+					? 'second'
+					: col === 3
+					? 'third'
+					: col === 4
+					? 'fourth'
+					: 'fifth'
+			} letter${tile.value ? `: ${tile.value}` : ''}`}
+			aria-selected={isFocused}
 		>
-			<input
-				ref={inputRef}
-				type='text'
-				maxLength={1}
-				value={tile.value}
-				onChange={handleInputChange}
-				onKeyDown={handleKeyDown}
-				style={{
-					position: 'absolute',
-					opacity: 0,
-					width: '100%',
-					height: '100%',
-					top: 0,
-					left: 0,
-					border: 'none',
-					backgroundColor: 'transparent',
-					color: 'transparent',
-					zIndex: 1,
-				}}
-			/>
 			{tile.value}
 		</div>
 	)

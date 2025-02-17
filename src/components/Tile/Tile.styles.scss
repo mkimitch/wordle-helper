@@ -1,27 +1,56 @@
+@use "sass:color";
+@use "../../styles/_variables" as *;
+@use "../../styles/_mixins" as *;
+
 .tile {
 	align-items: center;
-	border: 2px solid #3a3a3c;
-	cursor: pointer;
+	border: 2px solid oklch(0.35 0 286.22);
+	color: oklch(1 0 231.14);
 	display: flex;
 	font-size: 2rem;
 	font-weight: bold;
-	height: 60px;
+	height: 62px;
 	justify-content: center;
+	margin: 2px;
+	position: relative;
+	text-transform: uppercase;
+	transition: all 0.2s ease;
 	user-select: none;
-	width: 60px;
+	width: 62px;
+	@include tile-base;
+
+	&:focus {
+		outline: none;
+	}
+
+	&.focused {
+		border-color: oklch(1 0 0);
+		box-shadow: 0 0 8px oklch(1 0 0 / 0.5);
+		transform: scale(1.05);
+		z-index: 1;
+	}
 
 	&.correct {
-		background-color: #6aaa64;
-		border-color: #6aaa64;
+		background-color: oklch(0.68 0.12 142.24);
+		border-color: oklch(0.68 0.12 142.24);
+		color: oklch(1 0 231.14);
 	}
 
 	&.present {
-		background-color: #c9b458;
-		border-color: #c9b458;
+		background-color: oklch(0.77 0.12 96.67);
+		border-color: oklch(0.77 0.12 96.67);
+		color: oklch(1 0 231.14);
 	}
 
 	&.absent {
-		background-color: #787c7e;
-		border-color: #787c7e;
+		background-color: oklch(0.58 0.01 228.88);
+		border-color: oklch(0.58 0.01 228.88);
+		color: oklch(1 0 231.14);
+	}
+
+	input {
+		&:focus {
+			outline: none;
+		}
 	}
 }

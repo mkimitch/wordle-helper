@@ -1,15 +1,76 @@
+@use "../../styles/_variables" as *;
+@use "../../styles/_mixins" as *;
+
+.instructions-toggle {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 10;
+
+	.instructions-button {
+		background: none;
+		border: none;
+		color: oklch(1 0 231.14);
+		cursor: pointer;
+		padding: 0.5rem;
+		transition: opacity 0.2s ease;
+
+		&:hover {
+			opacity: 0.8;
+		}
+
+		&:focus-visible {
+			border-radius: 50%;
+			outline: 2px solid oklch(1 0 231.14);
+			outline-offset: 2px;
+		}
+
+		svg {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+	.instructions {
+		background-color: oklch(0.29 0 286.18 / 0.79);
+		border-radius: 0.5rem;
+		box-shadow: 0 4px 6px oklch(0 0 0 / 0.1);
+		margin: 0 1rem;
+		max-height: min(fit-content, 90vh);
+		overflow-y: auto;
+		position: absolute;
+		right: 0;
+		top: calc(100% + 0.5rem);
+		width: min(90vw, 120rem);
+		z-index: 10;
+
+		@media (max-width: 480px) {
+			left: 50%;
+			max-height: 80vh;
+			position: fixed;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 90vw;
+		}
+	}
+}
+
+.board-container {
+	margin: 0 auto;
+	max-width: 500px;
+	padding: 1rem;
+	position: relative;
+	width: 100%;
+}
+
 .board {
-	box-sizing: border-box;
 	display: grid;
-	grid-gap: 5px;
-	grid-template-rows: repeat(6, 1fr);
-	height: fit-content;
+	gap: 5px;
 	padding: 10px;
-	width: fit-content;
 
 	.row {
-		display: grid;
-		grid-gap: 5px;
-		grid-template-columns: repeat(5, 1fr);
+		display: flex;
+		gap: 5px;
+		justify-content: center;
 	}
 }

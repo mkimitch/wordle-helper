@@ -1,6 +1,19 @@
+@use "sass:color";
+@use "../../styles/_variables" as *;
+@use "../../styles/_mixins" as *;
+
 .results {
-	.possible-words {
-		overflow-y: auto;
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+
+	.results-list {
 		max-height: 200px;
+		overflow-y: auto;
+
+		.result-item {
+			font-size: 1rem;
+			text-transform: uppercase;
+		}
 	}
 }
