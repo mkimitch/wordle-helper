@@ -2,7 +2,12 @@ import './styles/globals.scss'
 
 import React, { FC } from 'react'
 import { GlobalStoreProvider, useGlobalStore } from './context/GlobalStore'
-import type { BoardState, SolutionState } from './context/GlobalStore.types'
+import type {
+	BoardState,
+	GlobalStoreState,
+	SolutionState,
+} from './context/GlobalStore.types'
+import { getTileKey } from './utils/utils'
 
 import Board from './components/Board/Board'
 import Footer from './components/Footer/Footer'
@@ -82,17 +87,42 @@ const WordleHelper: FC = () => {
 		}))
 	}
 
+	const handleClearBoard = () => {
+		const initialState: GlobalStoreState['boardState'] = {}
+		for (let row = 1; row <= 6; row++) {
+			for (let col = 1; col <= 5; col++) {
+				const key = getTileKey(row, col)
+				initialState[key] = { value: '', state: '' }
+			}
+		}
+		setGlobalStore(prev => ({
+			...prev,
+			boardState: initialState,
+			results: [],
+			focusedTile: { row: 1, col: 1 },
+		}))
+	}
+
 	return (
 		<main className='wordle-helper'>
 			<h1 className='visually-hidden'>Wordle Helper</h1>
 			<Board />
-			<button
-				className='search-button'
-				onClick={handleSearch}
-				aria-label='Search for possible words'
-			>
-				Search
-			</button>
+			<div className='button-container'>
+				<button
+					className='clear-button'
+					onClick={handleClearBoard}
+					aria-label='Clear board and start over'
+				>
+					Clear Board
+				</button>
+				<button
+					className='search-button'
+					onClick={handleSearch}
+					aria-label='Search for possible words'
+				>
+					Find Solutions
+				</button>
+			</div>
 			<Results />
 			<Footer />
 		</main>

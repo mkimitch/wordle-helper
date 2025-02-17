@@ -21,41 +21,71 @@ body {
 	justify-content: center;
 
 	.wordle-helper {
-		align-items: stretch;
+		align-items: center;
+		background-color: #121213;
+		color: #ffffff;
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		justify-content: center;
+		min-height: 100vh;
+		padding: 1rem;
 
-		.search-button {
-			background-color: $primary-color;
-			border: none;
-			border-radius: 0.5rem;
-			color: oklch(1 0 231.14);
-			cursor: pointer;
-			font-size: 1.2rem;
-			font-weight: bold;
-			padding: 0.75rem 1.5rem;
-			transition:
-				background-color 0.3s ease,
-				transform 0.2s ease;
+		.button-container {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			margin: 1rem 0;
+			max-width: 500px;
+			width: 100%;
 
-			&:hover {
-				background-color: color.adjust($primary-color, $lightness: -10%);
+			button {
+				border-radius: 0.5rem;
+				cursor: pointer;
+				font-size: 1rem;
+				font-weight: 600;
+				min-width: 120px;
+				padding: 0.75rem 1.5rem;
+				transition: all 0.2s ease;
+
+				&:focus-visible {
+					outline: 2px solid white;
+					outline-offset: 2px;
+				}
+
+				&.search-button {
+					background-color: #538d4e;
+					border: none;
+					color: white;
+
+					&:hover {
+						background-color: #437c3e;
+					}
+				}
+
+				&.clear-button {
+					background-color: transparent;
+					border: 2px solid #818384;
+					color: #818384;
+
+					&:hover {
+						border-color: #ffffff;
+						color: #ffffff;
+					}
+				}
 			}
+		}
 
-			&:active {
-				background-color: color.adjust($primary-color, $lightness: -15%);
-			}
-
-			&:focus {
-				box-shadow: 0 0 0 3px color.adjust($primary-color, $lightness: 40%);
-				outline: none;
-			}
-
-			&:focus-visible {
-				outline: 3px solid oklch(1 0 231.14);
-				outline-offset: 2px;
-			}
+		.visually-hidden {
+			border: 0;
+			clip: rect(0, 0, 0, 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
 		}
 	}
 }
