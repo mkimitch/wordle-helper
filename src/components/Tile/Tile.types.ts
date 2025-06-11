@@ -1,9 +1,10 @@
 export interface TileState {
-	state: string;
-	value: string;
+	state: string
+	value: string
 }
 
 export interface TileProps {
-	col: number;
-	row: number;
+	col: number
+	focused?: boolean
+	row: number
 }

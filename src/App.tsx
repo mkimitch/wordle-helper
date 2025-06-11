@@ -1,13 +1,18 @@
 import './styles/globals.scss'
 
-import type { BoardState, SolutionState } from './context/GlobalStore.types'
-import { GlobalStoreProvider, useGlobalStore } from './context/GlobalStore'
 import React, { FC } from 'react'
+import { GlobalStoreProvider, useGlobalStore } from './context/GlobalStore'
+import type {
+	BoardState,
+	GlobalStoreState,
+	SolutionState,
+} from './context/GlobalStore.types'
+import { getTileKey } from './utils/utils'
 
 import Board from './components/Board/Board'
+import Footer from './components/Footer/Footer'
 import Results from './components/Results/Results'
 import { wordleAnswersList } from './utils/utils'
-import Footer from './components/Footer/Footer'
 
 const WordleHelper: FC = () => {
 	const { globalStore, setGlobalStore } = useGlobalStore()
@@ -19,10 +24,20 @@ const WordleHelper: FC = () => {
 		wordleAnswersList: string[]
 		solutionState: SolutionState
 	}): string[] => {
+		// Input validation
+		if (!wordleAnswersList?.length || !solutionState) {
+			return []
+		}
+
 		const { exclude, include, letters } = solutionState
 
-		const normalizedInclude = include.map(letter => letter.toLowerCase())
-		const normalizedExclude = exclude.map(letter => letter.toLowerCase())
+		// Normalize input
+		const normalizedInclude = (include || []).map(letter =>
+			letter.toLowerCase()
+		)
+		const normalizedExclude = (exclude || []).map(letter =>
+			letter.toLowerCase()
+		)
 
 		const includesLetter = (word: string) =>
 			normalizedInclude.every(letter => word.includes(letter))
@@ -30,27 +45,33 @@ const WordleHelper: FC = () => {
 		const excludesLetter = (word: string) =>
 			!normalizedExclude.some(letter => word.includes(letter))
 
-		const letterPatterns = Object.entries(letters).map(
-			([position, { is, isnot }]) => {
-				const pattern = new RegExp(
-					`^.{${Number(position) - 1}}${
-						is
-							? is.toLowerCase()
-							: isnot.length > 0
-							? `[^${isnot.join('').toLowerCase()}]`
-							: '.'
-					}.{${5 - Number(position)}}$`,
-					'i'
-				)
-				return { pattern, position }
-			}
-		)
+		try {
+			const letterPatterns = Object.entries(letters).map(
+				([position, { is, isnot }]) => {
+					const pattern = new RegExp(
+						`^.{${Number(position) - 1}}${
+							is
+								? is.toLowerCase()
+								: isnot?.length > 0
+								? `[^${isnot.join('').toLowerCase()}]`
+								: '.'
+						}.{${5 - Number(position)}}$`,
+						'i'
+					)
+					return { pattern, position }
+				}
+			)
 
-		return wordleAnswersList.filter(word => {
-			if (!excludesLetter(word)) return false
-			if (!includesLetter(word)) return false
-			return letterPatterns.every(({ pattern }) => pattern.test(word))
-		})
+			return wordleAnswersList.filter(word => {
+				if (!word || typeof word !== 'string') return false
+				if (!excludesLetter(word)) return false
+				if (!includesLetter(word)) return false
+				return letterPatterns.every(({ pattern }) => pattern.test(word))
+			})
+		} catch (error) {
+			console.error('Error in getPossibleWords:', error)
+			return []
+		}
 	}
 
 	const handleSearch = () => {
@@ -66,18 +87,45 @@ const WordleHelper: FC = () => {
 		}))
 	}
 
+	const handleClearBoard = () => {
+		const initialState: GlobalStoreState['boardState'] = {}
+		for (let row = 1; row <= 6; row++) {
+			for (let col = 1; col <= 5; col++) {
+				const key = getTileKey(row, col)
+				initialState[key] = { value: '', state: '' }
+			}
+		}
+		setGlobalStore(prev => ({
+			...prev,
+			boardState: initialState,
+			results: [],
+			focusedTile: { row: 1, col: 1 },
+		}))
+	}
+
 	return (
-		<div className='wordle-helper'>
+		<main className='wordle-helper'>
+			<h1 className='visually-hidden'>Wordle Helper</h1>
 			<Board />
-			<button
-				className='search-button'
-				onClick={handleSearch}
-			>
-				Search
-			</button>
+			<div className='button-container'>
+				<button
+					className='clear-button'
+					onClick={handleClearBoard}
+					aria-label='Clear board and start over'
+				>
+					Clear Board
+				</button>
+				<button
+					className='search-button'
+					onClick={handleSearch}
+					aria-label='Search for possible words'
+				>
+					Find Solutions
+				</button>
+			</div>
 			<Results />
 			<Footer />
-		</div>
+		</main>
 	)
 }
 

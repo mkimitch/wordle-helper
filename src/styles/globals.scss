@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "./_variables" as *;
+@use "./_mixins" as *;
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -6,45 +10,92 @@
 
 body {
 	align-items: center;
-	background-color: #121213;
-	color: #fff;
+	background-color: oklch(0.18 0 286.2);
+	color: oklch(1 0 231.14);
 	display: flex;
-	font-family: Arial, sans-serif;
-	height: 100vh;
+	flex-direction: column;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100dvh;
 	justify-content: center;
-	margin: 0;
 
 	.wordle-helper {
+		align-items: center;
+		background-color: #121213;
+		color: #ffffff;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 2rem;
+		justify-content: center;
+		min-height: 100vh;
+		padding: 1rem;
 
-		.search-button {
-			background-color: $primary-color;
-			border: none;
-			border-radius: 0.5rem;
-			color: #fff;
-			cursor: pointer;
-			font-size: 1rem;
-			padding: 0.75rem 1.5rem;
-			transition:
-				background-color 0.3s ease,
-				transform 0.2s ease;
+		.button-container {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			margin: 1rem 0;
+			max-width: 500px;
+			width: 100%;
 
-			&:hover {
-				background-color: darken($primary-color, 10%);
-				transform: translateY(-2px);
-			}
+			button {
+				border-radius: 0.5rem;
+				cursor: pointer;
+				font-size: 1rem;
+				font-weight: 600;
+				min-width: 120px;
+				padding: 0.75rem 1.5rem;
+				transition: all 0.2s ease;
 
-			&:active {
-				background-color: darken($primary-color, 15%);
-				transform: translateY(0);
-			}
+				&:focus-visible {
+					outline: 2px solid white;
+					outline-offset: 2px;
+				}
 
-			&:focus {
-				box-shadow: 0 0 0 3px lighten($primary-color, 40%);
-				outline: none;
+				&.search-button {
+					background-color: #538d4e;
+					border: none;
+					color: white;
+
+					&:hover {
+						background-color: #437c3e;
+					}
+				}
+
+				&.clear-button {
+					background-color: transparent;
+					border: 2px solid #818384;
+					color: #818384;
+
+					&:hover {
+						border-color: #ffffff;
+						color: #ffffff;
+					}
+				}
 			}
 		}
+
+		.visually-hidden {
+			border: 0;
+			clip: rect(0, 0, 0, 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
+		}
 	}
+}
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }
