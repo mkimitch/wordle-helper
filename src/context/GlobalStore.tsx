@@ -14,13 +14,13 @@ export const useGlobalStore = () => {
 }
 
 const createInitialBoardState = () => {
-	const boardState: GlobalStoreState['boardState'] = {}
-	for (let row = 1; row <= 5; row++) {
-		for (let col = 1; col <= 5; col++) {
-			boardState[`${row}-${col}`] = { value: '', state: '' }
-		}
-	}
-	return boardState
+        const boardState: GlobalStoreState['boardState'] = {}
+        for (let row = 1; row <= 6; row++) {
+                for (let col = 1; col <= 5; col++) {
+                        boardState[`${row}-${col}`] = { value: '', state: '' }
+                }
+        }
+        return boardState
 }
 
 export const GlobalStoreProvider: FC<{ children: React.ReactNode }> = ({
