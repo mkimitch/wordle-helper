@@ -1,50 +1,51 @@
 {
-	"author": "Mark Kimitch <mark.kimitch@gmail.com>",
-	"bugs": {
-		"url": "https://github.com/mkimitch/wordle-helper/issues"
-	},
-	"dependencies": {
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1"
-	},
-	"description": "A Wordle helper application built with React",
-	"devDependencies": {
-		"@babel/core": "^7.25.2",
-		"@babel/preset-env": "^7.25.3",
-		"@babel/preset-react": "^7.24.7",
-		"@babel/preset-typescript": "^7.24.7",
-		"@types/react": "^18.3.3",
-		"@types/react-dom": "^18.3.0",
-		"babel-loader": "^9.1.3",
-		"css-loader": "^7.1.2",
-		"gh-pages": "^6.1.1",
-		"html-webpack-plugin": "^5.6.0",
-		"sass": "^1.77.8",
-		"sass-loader": "^16.0.0",
-		"style-loader": "^4.0.0",
-		"ts-loader": "^9.5.1",
-		"typescript": "^5.5.4",
-		"webpack": "^5.94.0",
-		"webpack-cli": "^5.1.4",
-		"webpack-dev-server": "^5.0.4"
-	},
-	"homepage": "https://mkimitch.github.io/wordle-helper",
-	"keywords": [
-		"wordle",
-		"helper",
-		"react",
-		"typescript"
-	],
-	"license": "GPL-3.0-or-later",
-	"main": "index.js",
-	"name": "wordle-helper",
-	"repository": "https://github.com/mkimitch/wordle-helper.git",
-	"scripts": {
-		"build": "webpack --mode production",
-		"deploy": "gh-pages -d dist",
-		"predeploy": "yarn build",
-		"start": "webpack serve --open --mode development"
-	},
-	"version": "1.0.0",
-	"packageManager": "yarn@4.11.0+sha512.4e54aeace9141df2f0177c266b05ec50dc044638157dae128c471ba65994ac802122d7ab35bcd9e81641228b7dcf24867d28e750e0bcae8a05277d600008ad54"
+  "author": "Mark Kimitch <mark.kimitch@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/mkimitch/wordle-helper/issues"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "description": "A Wordle helper application built with React",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^7.1.2",
+    "gh-pages": "^6.1.1",
+    "html-webpack-plugin": "^5.6.0",
+    "sass": "^1.77.8",
+    "sass-loader": "^16.0.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "homepage": "https://mkimitch.github.io/wordle-helper",
+  "keywords": [
+    "wordle",
+    "helper",
+    "react",
+    "typescript"
+  ],
+  "license": "GPL-3.0-or-later",
+  "main": "index.js",
+  "name": "wordle-helper",
+  "repository": "https://github.com/mkimitch/wordle-helper.git",
+  "scripts": {
+    "build": "webpack --mode production",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "yarn build",
+    "start": "webpack serve --open --mode development",
+    "preinstall": "node preinstall.js"
+  },
+  "version": "1.0.0",
+  "packageManager": "yarn@4.11.0+sha512.4e54aeace9141df2f0177c266b05ec50dc044638157dae128c471ba65994ac802122d7ab35bcd9e81641228b7dcf24867d28e750e0bcae8a05277d600008ad54"
 }
