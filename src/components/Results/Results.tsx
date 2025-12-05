@@ -7,9 +7,9 @@ const Results: FC = () => {
 
 	return (
 		<div
+			aria-label='Search results'
 			className='results'
 			role='region'
-			aria-label='Search results'
 		>
 			{globalStore.results.length > 0 ? (
 				<>
@@ -17,14 +17,14 @@ const Results: FC = () => {
 						Possible words ({globalStore.results.length}):
 					</h2>
 					<div
+						aria-labelledby='results-heading'
 						className='results-list'
 						role='list'
-						aria-labelledby='results-heading'
 					>
 						{globalStore.results.map(word => (
 							<div
-								key={word}
 								className='result-item'
+								key={word}
 								role='listitem'
 							>
 								{word}

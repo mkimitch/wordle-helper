@@ -1,5 +1,8 @@
 import React, { createContext, FC, useContext, useState } from 'react'
-import type { GlobalStoreContextType, GlobalStoreState } from './GlobalStore.types'
+import type {
+	GlobalStoreContextType,
+	GlobalStoreState,
+} from './GlobalStore.types'
 
 export const GlobalStoreContext = createContext<
 	GlobalStoreContextType | undefined
@@ -13,14 +16,14 @@ export const useGlobalStore = () => {
 	return context
 }
 
-const createInitialBoardState = () => {
-        const boardState: GlobalStoreState['boardState'] = {}
-        for (let row = 1; row <= 6; row++) {
-                for (let col = 1; col <= 5; col++) {
-                        boardState[`${row}-${col}`] = { value: '', state: '' }
-                }
-        }
-        return boardState
+const createInitialBoardState = (): GlobalStoreState['boardState'] => {
+	const boardState: GlobalStoreState['boardState'] = {}
+	for (let row = 1; row <= 6; row++) {
+		for (let col = 1; col <= 5; col++) {
+			boardState[`${row}-${col}`] = { value: '', state: '' }
+		}
+	}
+	return boardState
 }
 
 export const GlobalStoreProvider: FC<{ children: React.ReactNode }> = ({
@@ -30,7 +33,13 @@ export const GlobalStoreProvider: FC<{ children: React.ReactNode }> = ({
 		solutionState: {
 			exclude: [],
 			include: [],
-			letters: {},
+			letters: {
+				1: { is: null, isnot: [] },
+				2: { is: null, isnot: [] },
+				3: { is: null, isnot: [] },
+				4: { is: null, isnot: [] },
+				5: { is: null, isnot: [] },
+			},
 		},
 		boardState: createInitialBoardState(),
 		focusedTile: null,

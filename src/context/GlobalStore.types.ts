@@ -1,5 +1,5 @@
-import type { TileState } from '../components/Tile/Tile.types'
 import type { Dispatch, SetStateAction } from 'react'
+import type { TileState } from '../components/Tile/Tile.types'
 
 export interface LetterPosition {
 	is: string | null
@@ -8,15 +8,12 @@ export interface LetterPosition {
 
 // Define the solution state type
 export interface SolutionState {
-	letters: Record<string, { is: string | null; isnot: string[] }>
+	letters: Record<string, LetterPosition>
 	include: string[]
 	exclude: string[]
 }
 
-export interface Tile {
-	value: string
-	state: 'correct' | 'present' | 'absent' | ''
-}
+export interface Tile extends TileState {}
 
 export interface BoardState {
 	[key: string]: Tile

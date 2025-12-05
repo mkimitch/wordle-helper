@@ -1,15 +1,25 @@
-export const getTileKey = (row: number, col: number) => `${row}-${col}`
+import type {
+	BoardState,
+	GlobalStoreState,
+	Tile,
+} from '../context/GlobalStore.types'
 
-export const getDefaultTile = (boardState: any, tileKey: string) =>
-	boardState[tileKey] || { state: '', value: '' }
+type GlobalStoreUpdater = (
+	updater: (prevState: GlobalStoreState) => GlobalStoreState
+) => void
+
+export const getTileKey = (row: number, col: number): string => `${row}-${col}`
+
+export const getDefaultTile = (boardState: BoardState, tileKey: string): Tile =>
+	boardState[tileKey] ?? { state: '', value: '' }
 
 export const updateTileState = (
-	setGlobalStore: any,
+	setGlobalStore: GlobalStoreUpdater,
 	tileKey: string,
-	tile: any,
-	updates: any
-) => {
-	setGlobalStore((prevState: any) => ({
+	tile: Tile,
+	updates: Partial<Tile>
+): void => {
+	setGlobalStore(prevState => ({
 		...prevState,
 		boardState: {
 			...prevState.boardState,

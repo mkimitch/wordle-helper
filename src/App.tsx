@@ -109,16 +109,16 @@ const WordleHelper: FC = () => {
 			<Board />
 			<div className='button-container'>
 				<button
+					aria-label='Clear board and start over'
 					className='clear-button'
 					onClick={handleClearBoard}
-					aria-label='Clear board and start over'
 				>
 					Clear Board
 				</button>
 				<button
+					aria-label='Search for possible words'
 					className='search-button'
 					onClick={handleSearch}
-					aria-label='Search for possible words'
 				>
 					Find Solutions
 				</button>

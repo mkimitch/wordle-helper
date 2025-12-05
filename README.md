@@ -1,35 +1,39 @@
-<!-- > ### 👨🏼‍💻 Currently Available for Hire!
->
-> Hi there! 👋 I'm currently looking for new opportunities as a Senior JavaScript Engineer or Frontend Developer. If you're interested in collaborating or hiring someone with expertise in JavaScript, TypeScript, React, and other frontend technologies, feel free to reach out to me!
->
-> You can connect with me on [LinkedIn](https://www.linkedin.com/in/mkimitch/) or email me directly at [mark.kimitch@gmail.com](mailto:mark.kimitch@gmail.com). -->
-
 # Wordle Helper
 
 **Author**: Mark Kimitch | **Email**: [mark.kimitch@gmail.com](mailto:mark.kimitch@gmail.com) | **Version**: 1.0.0 | **License**: [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+![React](https://img.shields.io/badge/dynamic/json?color=blue&label=React&query=$.dependencies.react&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=react)
+![TypeScript](https://img.shields.io/badge/dynamic/json?color=blue&label=TypeScript&query=$.devDependencies.typescript&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=typescript)
+![Webpack](https://img.shields.io/badge/dynamic/json?color=blue&label=Webpack&query=$.devDependencies.webpack&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=webpack)
 [![GitHub issues](https://img.shields.io/github/issues/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/issues)
 [![GitHub forks](https://img.shields.io/github/forks/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/network)
 [![GitHub stars](https://img.shields.io/github/stars/mkimitch/wordle-helper)](https://github.com/mkimitch/wordle-helper/stargazers)
 
-## Built With
-
-![React](https://img.shields.io/badge/dynamic/json?color=blue&label=React&query=$.dependencies.react&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=react)
-![TypeScript](https://img.shields.io/badge/dynamic/json?color=blue&label=TypeScript&query=$.devDependencies.typescript&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=typescript)
-![Webpack](https://img.shields.io/badge/dynamic/json?color=blue&label=Webpack&query=$.devDependencies.webpack&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmkimitch%2Fwordle-helper%2Fmain%2Fpackage.json&logo=webpack)
+> ## 👨🏼‍💻 Currently Available for Hire
+>
+> Hi there! 👋 I'm actively seeking **Senior or Lead** roles as a **Full Stack Engineer** or **Front-end Engineer**.
+>
+> **OmniCal** showcases my expertise in TypeScript, REST API design, database architecture, OAuth implementation, and building production-ready backend services. I specialize in JavaScript, TypeScript, React, Node.js, and modern web technologies.
+>
+> Interested in collaborating? Connect with me on [LinkedIn](https://www.linkedin.com/in/mkimitch/) or email [mark.kimitch@gmail.com](mailto:mark.kimitch@gmail.com).
 
 ## Table of Contents
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Scripts](#scripts)
-- [Development](#development)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+- [Wordle Helper](#wordle-helper)
+	- [Table of Contents](#table-of-contents)
+	- [Project Overview](#project-overview)
+	- [Features](#features)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Scripts](#scripts)
+	- [Development](#development)
+		- [Project Structure](#project-structure)
+		- [TypeScript Configuration](#typescript-configuration)
+		- [Webpack Configuration](#webpack-configuration)
+	- [Deployment](#deployment)
+	- [Contributing](#contributing)
+	- [License](#license)
 
 ## Project Overview
 

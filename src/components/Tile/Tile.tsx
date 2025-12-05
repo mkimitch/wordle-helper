@@ -2,18 +2,15 @@ import React, { FC, useEffect, useRef } from 'react'
 import { useGlobalStore } from '../../context/GlobalStore'
 import { getDefaultTile, getTileKey } from '../../utils/utils'
 import './Tile.styles.scss'
-
-interface TileProps {
-	row: number
-	col: number
-}
+import type { TileProps, TileStatus } from './Tile.types'
 
 const Tile: FC<TileProps> = ({ row, col }) => {
 	const { globalStore, setGlobalStore } = useGlobalStore()
 	const tileKey = getTileKey(row, col)
 	const inputRef = useRef<HTMLDivElement>(null)
 	const tile = getDefaultTile(globalStore.boardState, tileKey)
-	const isFocused = globalStore.focusedTile?.row === row && globalStore.focusedTile?.col === col
+	const isFocused =
+		globalStore.focusedTile?.row === row && globalStore.focusedTile?.col === col
 
 	useEffect(() => {
 		if (isFocused && inputRef.current) {
@@ -24,36 +21,31 @@ const Tile: FC<TileProps> = ({ row, col }) => {
 	const handleClick = () => {
 		if (isFocused && tile.value) {
 			// If already focused and has a value, cycle the state
-			const stateTransitions: Record<string, string> = {
+			const stateTransitions: Record<TileStatus, TileStatus> = {
 				'': 'correct',
-				'correct': 'present',
-				'present': 'absent',
-				'absent': ''
+				correct: 'present',
+				present: 'absent',
+				absent: '',
 			}
-			const nextState = stateTransitions[tile.state] || 'correct'
+			const nextState: TileStatus = stateTransitions[tile.state]
 			setGlobalStore(prev => ({
 				...prev,
 				boardState: {
 					...prev.boardState,
-					[tileKey]: { ...tile, state: nextState }
-				}
+					[tileKey]: { ...tile, state: nextState },
+				},
 			}))
 		} else {
 			// Set focus to this tile
 			setGlobalStore(prev => ({
 				...prev,
-				focusedTile: { row, col }
+				focusedTile: { row, col },
 			}))
 		}
 	}
 
 	return (
 		<div
-			ref={inputRef}
-			className={`tile ${tile.state} ${isFocused ? 'focused' : ''}`}
-			onClick={handleClick}
-			tabIndex={isFocused ? 0 : -1}
-			role="gridcell"
 			aria-label={`${
 				row === 1
 					? 'First'
@@ -78,23 +70,15 @@ const Tile: FC<TileProps> = ({ row, col }) => {
 					: 'fifth'
 			} letter${tile.value ? `: ${tile.value}` : ''}`}
 			aria-selected={isFocused}
+			className={`tile ${tile.state} ${isFocused ? 'focused' : ''}`}
+			onClick={handleClick}
+			ref={inputRef}
+			role='gridcell'
+			tabIndex={isFocused ? 0 : -1}
 		>
 			{tile.value}
 		</div>
 	)
-}
-
-const getTileColor = (state: string) => {
-	switch (state) {
-		case 'correct':
-			return '#6AAA64' // Green
-		case 'present':
-			return '#C9B458' // Yellow
-		case 'absent':
-			return '#787C7E' // Gray
-		default:
-			return '#121213' // Default Gray
-	}
 }
 
 export default Tile

@@ -1,11 +1,11 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require( "path" );
+const HtmlWebpackPlugin = require( "html-webpack-plugin" );
 
 module.exports = {
 	devtool: "source-map",
 	devServer: {
 		static: {
-			directory: path.join(__dirname, "dist"),
+			directory: path.join( __dirname, "dist" ),
 		},
 		compress: true,
 		port: 9000,
@@ -49,7 +49,7 @@ module.exports = {
 						options: {
 							sourceMap: true,
 							sassOptions: {
-								includePaths: [path.resolve(__dirname, "src/styles")],
+								includePaths: [ path.resolve( __dirname, "src/styles" ) ],
 							},
 						},
 					},
@@ -58,19 +58,19 @@ module.exports = {
 		],
 	},
 	output: {
-		path: path.resolve(__dirname, "dist"),
+		path: path.resolve( __dirname, "dist" ),
 		filename: "bundle.js",
 		publicPath: "/wordle-helper/",
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
+		new HtmlWebpackPlugin( {
 			template: "./src/index.html",
-		}),
+		} ),
 	],
 	resolve: {
-		extensions: [".tsx", ".ts", ".js", ".scss"],
+		extensions: [ ".tsx", ".ts", ".js", ".scss" ],
 		alias: {
-			"@styles": path.resolve(__dirname, "src/styles"),
+			"@styles": path.resolve( __dirname, "src/styles" ),
 		},
 	},
 };

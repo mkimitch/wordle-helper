@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useGlobalStore } from '../../context/GlobalStore'
 import { GlobalStoreState } from '../../context/GlobalStore.types'
-import { getDefaultTile, getTileKey } from '../../utils/utils'
-import Tile from '../Tile/Tile'
+import { getTileKey } from '../../utils/utils'
 import Instructions from '../Instructions/Instructions'
+import Tile from '../Tile/Tile'
 import './Board.styles.scss'
 
 const Board: FC = () => {
@@ -11,6 +11,12 @@ const Board: FC = () => {
 	const [isInstructionsOpen, setIsInstructionsOpen] = useState(false)
 	const ROWS = 6
 	const COLS = 5
+
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	const handleBoardClick = () => {
+		inputRef.current?.focus()
+	}
 
 	useEffect(() => {
 		// Initialize board state if empty
@@ -150,35 +156,58 @@ const Board: FC = () => {
 	}, [globalStore.focusedTile, globalStore.boardState])
 
 	return (
-		<div className="board-container">
-			<div className="instructions-toggle">
+		<div className='board-container'>
+			<input
+				aria-hidden='true'
+				autoComplete='off'
+				className='mobile-input'
+				maxLength={1}
+				onBlur={() => inputRef.current?.focus()}
+				ref={inputRef}
+				type='text'
+			/>
+			<div className='instructions-toggle'>
 				<button
-					className="instructions-button"
-					onClick={() => setIsInstructionsOpen(!isInstructionsOpen)}
+					aria-controls='instructions-content'
 					aria-expanded={isInstructionsOpen}
-					aria-controls="instructions-content"
-					aria-label="How to play instructions"
+					aria-label='How to play instructions'
+					className='instructions-button'
+					onClick={() => setIsInstructionsOpen(!isInstructionsOpen)}
 				>
 					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
+						aria-hidden='true'
+						fill='none'
+						stroke='currentColor'
+						strokeLinecap='round'
+						strokeLinejoin='round'
+						strokeWidth='2'
+						viewBox='0 0 24 24'
+						xmlns='http://www.w3.org/2000/svg'
 					>
-						<circle cx="12" cy="12" r="10" />
-						<path d="M12 16v-4M12 8h.01" />
+						<circle
+							cx='12'
+							cy='12'
+							r='10'
+						/>
+						<path d='M12 16v-4M12 8h.01' />
 					</svg>
 				</button>
 				<Instructions isOpen={isInstructionsOpen} />
 			</div>
 
-			<div className="board" role="grid" aria-label="Wordle game board" tabIndex={-1}>
+			<div
+				aria-label='Wordle game board'
+				className='board'
+				onClick={handleBoardClick}
+				role='grid'
+				tabIndex={-1}
+			>
 				{Array.from({ length: ROWS }, (_, row) => (
-					<div key={row} className="row" role="row">
+					<div
+						key={row}
+						className='row'
+						role='row'
+					>
 						{Array.from({ length: COLS }, (_, col) => (
 							<Tile
 								key={getTileKey(row + 1, col + 1)}

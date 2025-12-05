@@ -1,5 +1,7 @@
+export type TileStatus = 'correct' | 'present' | 'absent' | ''
+
 export interface TileState {
-	state: string
+	state: TileStatus
 	value: string
 }
 
