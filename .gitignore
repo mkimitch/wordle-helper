@@ -45,6 +45,7 @@ gh-pages/
 # Temporary files
 *.tmp
 *.temp
+*.diff
 
 # IDE files
 *.iml
